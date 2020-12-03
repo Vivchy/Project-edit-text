@@ -8,11 +8,13 @@
 # кинуть randtext в игнор как и maintext
 # 
 
- 
+
 import random
+import re
 
 maintext = open('maintext.txt', 'rt', encoding='utf-8')
 text = maintext.read() 
+
 
 # разбить текст на логические отрезки
 array_words = text.split(' ') # на слова
@@ -30,8 +32,34 @@ shuffle_text = array_words.copy()  # копировать
 random.shuffle(shuffle_text) # перемешать
 randtext = ' '.join(shuffle_text) # преобразовать в текст
 
-rand_writed_text = open('randtext.txt', 'wt', encoding='utf-8')
-rand_writed_text.write(randtext)
+iterator_list = len(array_words)
+i = 0
+for word in array_words:
+    find = re.sub('\n', ' ', word )
+    array_words[i] = find 
+    i +=1
+
+text = ' '.join(shuffle_text) # преобразовать в текст
+count = 0
+i=0
+k=0
+new_text = ''
+for w in text:
+    if w == ' ' or w == '  ' or w == ', ':
+        count +=1
+    if count == 8:
+        w = '\n'
+        count = 0
+        new_text += text[k:i]
+        new_text+=w
+        k=i
+        print(new_text)
+    i+=1
+# запись текста 
+rand_writed_text = open('randtext.txt', 'wt', encoding='utf-8') 
+rand_writed_text.write(randtext)# случайный текст
+
+
 
 
 
