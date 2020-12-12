@@ -30,7 +30,7 @@ with open('newgame.csv', 'wt') as g:
     cin.writeheader()
     cin.writerows(games2)
 
-print(c)
+
 def find_word(word, text):
     """
     получает слово и выводит колличество данных совпадений в тексте
